@@ -23,69 +23,69 @@ const validateName = (name) =>{
 }// validateName
 
 
-// create genres
-const genres = [
+// create courses
+const courses = [
  {
   id: 1,
-  name: 'horror'
+  name: 'NodeJs'
  },
  {
   id: 2,
-  name: 'action/adventure'
+  name: 'GatsbyJs'
  },
  {
   id: 3,
-  name: 'comedy'
+  name: 'REACT'
  },
  {
   id: 4,
-  name: 'drama'
+  name: 'PostgreSQL'
  },
  {
   id: 5,
-  name: 'romance'
+  name: 'Ruby on Rails'
  },
  {
   id: 6,
-  name: 'science fiction'
+  name: 'Django'
  },
  {
   id: 7,
-  name: 'western'
+  name: 'Flask'
  },
  {
   id: 8,
-  name: 'mystery'
+  name: 'Hugo'
  },
  {
   id: 9,
-  name: 'historical fiction'
+  name: 'Jekyll'
  },
  {
   id: 10,
-  name: 'thriller'
+  name: 'VueJs'
  },
  
 ];
 
-//get list of genres
-app.get('/api/genres', (req,res) => {
- if(typeof genres === 'undefined' || genres.length === 0) return res.status(404).send("404 that...keep moving...nothing to see here"); 
- res.send(genres);
+//get list of courses
+app.get('/api/courses', (req,res) => {
+ if(typeof courses === 'undefined' || courses.length === 0) return res.status(404).send("404 that...keep moving...nothing to see here"); 
+ res.send(courses);
 })
 
-//get a single genre
-app.get('/api/genres/:id', (req, res) => {
+//get a single course
+app.get('/api/courses/:id', (req, res) => {
  const genreId = parseInt(req.params.id);
- const genre = genres.find(g => g.id === genreId);
- if(!genre) return res.status(404).send(`${error404Message}`);
- res.send(genre);
+ const course = courses.find(g => g.id === genreId);
+ if(!course) return res.status(404).send(`${error404Message}`);
+ res.send(course);
  res.end();
 })
 
-// create a genre
-app.post('/api/genres', (req, res) => {
- const lastId = genres[genres.length -1].id;
+// create a course
+app.post('/api/courses', (req, res) => {
+ const lastId = courses[courses.length -1].id;
  const newGenre = {
    id: lastId + 1,
    name: req.body.name,
@@ -94,35 +94,35 @@ app.post('/api/genres', (req, res) => {
   const result = validateName(req.body);
   
   if(result.error) return res.status(400).send(result.error.details[0].message);
-  genres.push(newGenre);
+  courses.push(newGenre);
    res.send(newGenre);
   res.end();
 
 })
 
-//update a genre
-app.put('/api/genres/:id', (req, res) => {
+//update a course
+app.put('/api/courses/:id', (req, res) => {
  const oldGenreId = parseInt(req.params.id);
- const genre = genres.find(g => g.id === oldGenreId);
- if(typeof genre === 'undefined'){
+ const course = courses.find(g => g.id === oldGenreId);
+ if(typeof course === 'undefined'){
   return res.status(404).send("That one ain't here, yo.")
  }
  const result = validateName(req.body);
  if(result.error) return res.status(400).send(result.error.details[0].message);
  
-  genre.name = req.body.name
-  res.send(genre);
+  course.name = req.body.name
+  res.send(course);
   res.end();
 
 })//put 
 
-// delete genre
-app.delete('/api/genres/:id', (req, res) => {
- const genre = genres.find(g => g.id === parseInt(req.params.id));
- if(typeof genre === 'undefined') return res.status(404).send(`${error404Message}`);
- const genreIndex = genres.indexOf(genre);
- genres.splice(genreIndex, 1);
- res.send(genre);
+// delete course
+app.delete('/api/courses/:id', (req, res) => {
+ const course = courses.find(g => g.id === parseInt(req.params.id));
+ if(typeof course === 'undefined') return res.status(404).send(`${error404Message}`);
+ const genreIndex = courses.indexOf(course);
+ courses.splice(genreIndex, 1);
+ res.send(course);
 })
 
 
